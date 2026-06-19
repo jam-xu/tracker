@@ -14,12 +14,19 @@ export default function App() {
   const { transactions, config, loading: dataLoading, importFromJson,
           addTransaction, updateTransaction, deleteTransaction, bulkUpdate, updateConfig } = useData(user);
 
-  const [tab, setTab]         = useState("dash");
-  const [month, setMonth]     = useState("all");
+  const [tab, setTab]           = useState("dash");
+  const [month, setMonth]       = useState("all");
   const [darkMode, setDarkMode] = useState(true);
 
   const P = darkMode ? PALETTE_DARK : PALETTE_LIGHT;
   const { money, money0 } = makeMoney(config?.currency || "CAD");
+
+  // ── ALL hooks must come before any early returns ───────────────
+  const months = useMemo(() => [...new Set((transactions || []).map((t) => mk(t.date)))].sort(), [transactions]);
+  const scoped  = useMemo(() => {
+    if (!transactions) return [];
+    return month === "all" ? transactions : transactions.filter((t) => mk(t.date) === month);
+  }, [transactions, month]);
 
   // ── Auth loading ──────────────────────────────────────────────
   if (authLoading) return (
@@ -45,10 +52,6 @@ export default function App() {
       onSkip={() => updateConfig({ onboarded: true })}
     />
   );
-
-  // ── Helpers ───────────────────────────────────────────────────
-  const months = useMemo(() => [...new Set(transactions.map((t) => mk(t.date)))].sort(), [transactions]);
-  const scoped  = useMemo(() => month === "all" ? transactions : transactions.filter((t) => mk(t.date) === month), [transactions, month]);
 
   const exportData = () => {
     const out = {
