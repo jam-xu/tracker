@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { useAuth } from "./hooks/useAuth.js";
 import { useData } from "./hooks/useData.js";
 import { supabase } from "./lib/supabase.js";
-import { PALETTE_DARK, PALETTE_LIGHT, FONT, SERIF, MONO, ALL, makeMoney, mk, ml, inputStyle, btnPrimaryStyle, Pill } from "./lib/constants.js";
-import { Card, KpiCard, Pill as PillUI, Field, Select, N, Empty, Row } from "./components/ui.jsx";
+import { PALETTE_DARK, PALETTE_LIGHT, FONT, MONO, makeMoney, mk, ml, inputStyle, btnPrimaryStyle } from "./lib/constants.js";
+import { Card, Pill, Field, N } from "./components/ui.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import LogTab from "./components/LogTab.jsx";
@@ -76,8 +76,8 @@ export default function App() {
         {/* Month filter — hidden on settings tab */}
         {tab !== "settings" && (
           <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 20 }}>
-            <PillUI P={P} active={month === "all"} onClick={() => setMonth("all")}>All months</PillUI>
-            {months.map((m) => <PillUI key={m} P={P} active={month === m} onClick={() => setMonth(m)}>{ml(m)}</PillUI>)}
+            <Pill P={P} active={month === "all"} onClick={() => setMonth("all")}>All months</Pill>
+            {months.map((m) => <Pill key={m} P={P} active={month === m} onClick={() => setMonth(m)}>{ml(m)}</Pill>)}
           </div>
         )}
 
@@ -96,11 +96,11 @@ const ACCOUNTS = ["TFSA", "FHSA", "RRSP"];
 
 function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
   const roomLeft = config?.room_left || {};
-  const [rooms, setRooms]       = useState({ TFSA: roomLeft.TFSA ?? "", FHSA: roomLeft.FHSA ?? "", RRSP: roomLeft.RRSP ?? "" });
-  const [saved, setSaved]       = useState(false);
-  const [deleting, setDeleting] = useState(false);
+  const [rooms, setRooms]           = useState({ TFSA: roomLeft.TFSA ?? "", FHSA: roomLeft.FHSA ?? "", RRSP: roomLeft.RRSP ?? "" });
+  const [saved, setSaved]           = useState(false);
+  const [deleting, setDeleting]     = useState(false);
   const [confirmDel, setConfirmDel] = useState("");
-  const [delError, setDelError] = useState("");
+  const [delError, setDelError]     = useState("");
 
   const saveRooms = async () => {
     const room_left = {};
@@ -114,10 +114,9 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
     if (confirmDel !== user.email) { setDelError("Email doesn't match."); return; }
     setDeleting(true);
     try {
-      // Delete all user data first, then the auth account
       await supabase.from("transactions").delete().eq("user_id", user.id);
       await supabase.from("user_config").delete().eq("user_id", user.id);
-      await supabase.rpc("delete_user"); // requires a Supabase function (see note below)
+      await supabase.rpc("delete_user");
       await supabase.auth.signOut();
     } catch (e) {
       setDelError("Could not delete account: " + e.message);
@@ -130,7 +129,6 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
 
   return (
     <div>
-      {/* Account */}
       <Card P={P} title="Account">
         <div style={{ fontSize: 13, color: P.muted, marginBottom: 16 }}>
           Signed in as <strong style={{ color: P.ink }}>{user.email}</strong>
@@ -140,23 +138,22 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
         </button>
       </Card>
 
-      {/* Contribution room */}
       <Card P={P} title="Contribution room" subtitle="Your remaining room for this year">
         <p style={{ fontSize: 13, color: P.muted, marginBottom: 20, marginTop: 0 }}>
-          Enter how much contribution room you have left in each account. You can find these numbers on your CRA My Account or your latest NOA.
+          Enter how much contribution room you have left in each account. Find these numbers on your CRA My Account or your latest NOA.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16, marginBottom: 20 }}>
           {ACCOUNTS.map((a) => (
             <div key={a} style={{ background: P.surfaceAlt, borderRadius: P.radius, padding: "16px 18px" }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: P.muted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 }}>{a}</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 <span style={{ fontSize: 15, color: P.muted, fontWeight: 600 }}>$</span>
                 <input
                   type="number" min="0" step="0.01"
                   value={rooms[a]}
                   onChange={(e) => setRooms((r) => ({ ...r, [a]: e.target.value }))}
                   placeholder="0.00"
-                  style={{ ...inputS, fontFamily: MONO, fontSize: 18, fontWeight: 700, border: "none", background: "transparent", padding: "0", width: "100%", color: P.ink }}
+                  style={{ ...inputS, fontFamily: MONO, fontSize: 18, fontWeight: 700, border: "none", background: "transparent", padding: 0, width: "100%", color: P.ink }}
                 />
               </div>
             </div>
@@ -167,17 +164,14 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
         </button>
       </Card>
 
-      {/* Delete account */}
       <Card P={P} title="Delete account">
         <p style={{ fontSize: 13, color: P.muted, marginBottom: 16, marginTop: 0 }}>
           Permanently deletes your account and all your data. This cannot be undone.
         </p>
-        <div style={{ marginBottom: 12 }}>
-          <Field P={P} label={`Type your email to confirm: ${user.email}`}>
-            <input value={confirmDel} onChange={(e) => { setConfirmDel(e.target.value); setDelError(""); }}
-              placeholder={user.email} style={inputS} />
-          </Field>
-        </div>
+        <Field P={P} label={`Type your email to confirm: ${user.email}`}>
+          <input value={confirmDel} onChange={(e) => { setConfirmDel(e.target.value); setDelError(""); }}
+            placeholder={user.email} style={{ ...inputS, marginBottom: 12 }} />
+        </Field>
         {delError && <div style={{ fontSize: 13, color: P.over, marginBottom: 12 }}>{delError}</div>}
         <button onClick={deleteAccount} disabled={deleting} style={btnDanger}>
           {deleting ? "Deleting…" : "Delete my account"}
