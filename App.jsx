@@ -32,8 +32,9 @@ export default function App() {
   if (authLoading) return (
     <div style={{ fontFamily: FONT, color: "#854d27", padding: 60, textAlign: "center", background: "#f9f8f5", minHeight: "100vh" }}>Loading…</div>
   );
-  if (recovering) return <ResetPasswordPage onUpdatePassword={updatePassword} />;
-  if (!user) return <AuthPage onSignIn={signIn} onSignUp={signUp} onResetPassword={resetPassword} />;
+  if (recovering) return (ResetPasswordPage onUpdatePassword={updatePassword}
+                          );
+  if (!user) return (AuthPage onSignIn={signIn} onSignUp={signUp} onResetPassword={resetPassword});
   if (dataLoading) return (
     <div style={{ fontFamily: FONT, color: P.muted, padding: 60, textAlign: "center", background: P.bg, minHeight: "100vh" }}>Loading your ledger…</div>
   );
