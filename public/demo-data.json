@@ -1,0 +1,608 @@
+{
+  "version": 1,
+  "currency": "CAD",
+  "room_left": {
+    "TFSA": 6500.0,
+    "FHSA": 7400.0,
+    "RRSP": 14000.0
+  },
+  "categories": {
+    "expense": [
+      "Housing",
+      "Food",
+      "Transport",
+      "Entertainment",
+      "Shopping",
+      "Health",
+      "Fitness"
+    ],
+    "income": [
+      "Salary",
+      "Freelance",
+      "Gift"
+    ],
+    "investment": [
+      "TFSA",
+      "FHSA",
+      "RRSP"
+    ]
+  },
+  "accounts": [
+    "RBC Chequing",
+    "BMO",
+    "Visa",
+    "Amex"
+  ],
+  "transactions": [
+    {
+      "date": "2026-04-01",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Rent",
+      "amount": 1400.0,
+      "account": "RBC Chequing",
+      "note": "",
+      "id": "9t84azytjxep"
+    },
+    {
+      "date": "2026-04-02",
+      "type": "expense",
+      "category": "Transport",
+      "subcategory": "Transit",
+      "amount": 110.0,
+      "account": "Visa",
+      "note": "Monthly pass",
+      "id": "g8sbi4q2y9v8"
+    },
+    {
+      "date": "2026-04-03",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 78.4,
+      "account": "BMO",
+      "note": "",
+      "id": "rhocn9j2qp89"
+    },
+    {
+      "date": "2026-04-04",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "xaji0y6dpbhs"
+    },
+    {
+      "date": "2026-04-05",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Electricity",
+      "amount": 88.2,
+      "account": "RBC Chequing",
+      "note": "March",
+      "id": "58drc11ertj5"
+    },
+    {
+      "date": "2026-04-07",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 32.5,
+      "account": "Visa",
+      "note": "Lunch with M",
+      "id": "i3qk2iagl58k"
+    },
+    {
+      "date": "2026-04-09",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 15.99,
+      "account": "Visa",
+      "note": "Netflix",
+      "id": "pbmyofqewaou"
+    },
+    {
+      "date": "2026-04-11",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 92.15,
+      "account": "BMO",
+      "note": "",
+      "id": "uzfk8ut0cvs4"
+    },
+    {
+      "date": "2026-04-12",
+      "type": "income",
+      "category": "Freelance",
+      "subcategory": "",
+      "amount": 450.0,
+      "account": "RBC Chequing",
+      "note": "Logo design",
+      "id": "5lxo6qjiujv6"
+    },
+    {
+      "date": "2026-04-14",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 58.2,
+      "account": "Visa",
+      "note": "Date night",
+      "id": "xo9t7e8g8jdp"
+    },
+    {
+      "date": "2026-04-15",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Internet",
+      "amount": 65.0,
+      "account": "Visa",
+      "note": "",
+      "id": "he7ur23gdppq"
+    },
+    {
+      "date": "2026-04-15",
+      "type": "investment",
+      "category": "TFSA",
+      "subcategory": "",
+      "amount": 500.0,
+      "account": "",
+      "note": "April contribution",
+      "id": "urtp0lzjjege"
+    },
+    {
+      "date": "2026-04-15",
+      "type": "investment",
+      "category": "FHSA",
+      "subcategory": "",
+      "amount": 300.0,
+      "account": "",
+      "note": "April contribution",
+      "id": "qpgb7r3ocwbf"
+    },
+    {
+      "date": "2026-04-18",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "ahxthv3a3zmf"
+    },
+    {
+      "date": "2026-04-18",
+      "type": "expense",
+      "category": "Transport",
+      "subcategory": "Uber",
+      "amount": 42.0,
+      "account": "Visa",
+      "note": "Late night",
+      "id": "zcotohp6vz41"
+    },
+    {
+      "date": "2026-04-19",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 64.8,
+      "account": "BMO",
+      "note": "",
+      "id": "f8cgvyie6ivw"
+    },
+    {
+      "date": "2026-04-20",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 11.99,
+      "account": "Visa",
+      "note": "Spotify",
+      "id": "afeyuhz1gv0e"
+    },
+    {
+      "date": "2026-04-22",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 18.75,
+      "account": "Visa",
+      "note": "Coffee & pastry",
+      "id": "0lvsnujza7tz"
+    },
+    {
+      "date": "2026-04-25",
+      "type": "expense",
+      "category": "Shopping",
+      "subcategory": "Clothing",
+      "amount": 120.0,
+      "account": "Visa",
+      "note": "Spring jacket",
+      "id": "43d8w3zp08j3"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 105.2,
+      "account": "BMO",
+      "note": "",
+      "id": "pvs7hzioykl1"
+    },
+    {
+      "date": "2026-04-30",
+      "type": "investment",
+      "category": "RRSP",
+      "subcategory": "",
+      "amount": 1000.0,
+      "account": "",
+      "note": "RRSP top-up",
+      "id": "9kwv08hhxfgc"
+    },
+    {
+      "date": "2026-05-01",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Rent",
+      "amount": 1400.0,
+      "account": "RBC Chequing",
+      "note": "",
+      "id": "q85jsg65kxvf"
+    },
+    {
+      "date": "2026-05-02",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "8mdd4v30t9nt"
+    },
+    {
+      "date": "2026-05-02",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 45.0,
+      "account": "Visa",
+      "note": "Brunch",
+      "id": "0yncxll4zklo"
+    },
+    {
+      "date": "2026-05-02",
+      "type": "expense",
+      "category": "Transport",
+      "subcategory": "Transit",
+      "amount": 110.0,
+      "account": "Visa",
+      "note": "Monthly pass",
+      "id": "6wzs3t60rjiw"
+    },
+    {
+      "date": "2026-05-04",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 71.3,
+      "account": "BMO",
+      "note": "",
+      "id": "cq99chj755nf"
+    },
+    {
+      "date": "2026-05-06",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Electricity",
+      "amount": 75.4,
+      "account": "RBC Chequing",
+      "note": "April",
+      "id": "pht0hl9xpsei"
+    },
+    {
+      "date": "2026-05-09",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 15.99,
+      "account": "Visa",
+      "note": "Netflix",
+      "id": "axeqbnhl1n13"
+    },
+    {
+      "date": "2026-05-11",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 88.9,
+      "account": "BMO",
+      "note": "",
+      "id": "4zw9xa3kx7ee"
+    },
+    {
+      "date": "2026-05-13",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 72.4,
+      "account": "Visa",
+      "note": "Dinner downtown",
+      "id": "okep7y6wktak"
+    },
+    {
+      "date": "2026-05-15",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Internet",
+      "amount": 65.0,
+      "account": "Visa",
+      "note": "",
+      "id": "0y9dom5igqpk"
+    },
+    {
+      "date": "2026-05-15",
+      "type": "investment",
+      "category": "TFSA",
+      "subcategory": "",
+      "amount": 500.0,
+      "account": "",
+      "note": "May contribution",
+      "id": "t1ghr09skdgi"
+    },
+    {
+      "date": "2026-05-15",
+      "type": "investment",
+      "category": "FHSA",
+      "subcategory": "",
+      "amount": 300.0,
+      "account": "",
+      "note": "May contribution",
+      "id": "uk9e1v2isqp4"
+    },
+    {
+      "date": "2026-05-16",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "3w5uzbikcidk"
+    },
+    {
+      "date": "2026-05-17",
+      "type": "expense",
+      "category": "Shopping",
+      "subcategory": "Books",
+      "amount": 45.8,
+      "account": "Amex",
+      "note": "Two novels",
+      "id": "trp0j43d5iqv"
+    },
+    {
+      "date": "2026-05-19",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 95.6,
+      "account": "BMO",
+      "note": "",
+      "id": "dtjvzhwjr64d"
+    },
+    {
+      "date": "2026-05-20",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 11.99,
+      "account": "Visa",
+      "note": "Spotify",
+      "id": "38daly8ozcyw"
+    },
+    {
+      "date": "2026-05-22",
+      "type": "income",
+      "category": "Gift",
+      "subcategory": "",
+      "amount": 100.0,
+      "account": "RBC Chequing",
+      "note": "Birthday gift",
+      "id": "oh9sdbdw2pcn"
+    },
+    {
+      "date": "2026-05-23",
+      "type": "expense",
+      "category": "Transport",
+      "subcategory": "Uber",
+      "amount": 28.5,
+      "account": "Visa",
+      "note": "",
+      "id": "nam148p0tvhh"
+    },
+    {
+      "date": "2026-05-25",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 22.3,
+      "account": "Visa",
+      "note": "Quick lunch",
+      "id": "puxqphr62gds"
+    },
+    {
+      "date": "2026-05-27",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 67.45,
+      "account": "BMO",
+      "note": "",
+      "id": "pja1wj0tpac5"
+    },
+    {
+      "date": "2026-05-30",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "wnnhj7xvg0fn"
+    },
+    {
+      "date": "2026-05-30",
+      "type": "expense",
+      "category": "Fitness",
+      "subcategory": "Yoga class",
+      "amount": 35.0,
+      "account": "Amex",
+      "note": "Drop-in",
+      "id": "dzr1yxr2dhyl"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Rent",
+      "amount": 1400.0,
+      "account": "RBC Chequing",
+      "note": "",
+      "id": "1t2tala753lc"
+    },
+    {
+      "date": "2026-06-02",
+      "type": "expense",
+      "category": "Transport",
+      "subcategory": "Transit",
+      "amount": 110.0,
+      "account": "Visa",
+      "note": "Monthly pass",
+      "id": "1swjckjlteiy"
+    },
+    {
+      "date": "2026-06-03",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 102.1,
+      "account": "BMO",
+      "note": "",
+      "id": "6t4ufel6246h"
+    },
+    {
+      "date": "2026-06-04",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Electricity",
+      "amount": 62.1,
+      "account": "RBC Chequing",
+      "note": "May",
+      "id": "mvihcwi64ciy"
+    },
+    {
+      "date": "2026-06-05",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 38.9,
+      "account": "Visa",
+      "note": "Sushi",
+      "id": "wm31yihair4c"
+    },
+    {
+      "date": "2026-06-08",
+      "type": "expense",
+      "category": "Health",
+      "subcategory": "Pharmacy",
+      "amount": 88.0,
+      "account": "Visa",
+      "note": "Refills",
+      "id": "nb4gh2m5zja8"
+    },
+    {
+      "date": "2026-06-09",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 15.99,
+      "account": "Visa",
+      "note": "Netflix",
+      "id": "jcat9mx2x18h"
+    },
+    {
+      "date": "2026-06-11",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 79.8,
+      "account": "BMO",
+      "note": "",
+      "id": "id25owf75935"
+    },
+    {
+      "date": "2026-06-13",
+      "type": "income",
+      "category": "Salary",
+      "subcategory": "",
+      "amount": 2800.0,
+      "account": "RBC Chequing",
+      "note": "Biweekly paycheck",
+      "id": "9xuy41ibljh7"
+    },
+    {
+      "date": "2026-06-14",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Restaurant",
+      "amount": 65.1,
+      "account": "Visa",
+      "note": "Anniversary",
+      "id": "owgzrixa11dp"
+    },
+    {
+      "date": "2026-06-15",
+      "type": "expense",
+      "category": "Housing",
+      "subcategory": "Internet",
+      "amount": 65.0,
+      "account": "Visa",
+      "note": "",
+      "id": "i7p5tb94874f"
+    },
+    {
+      "date": "2026-06-15",
+      "type": "investment",
+      "category": "TFSA",
+      "subcategory": "",
+      "amount": 500.0,
+      "account": "",
+      "note": "June contribution",
+      "id": "gatj9tze5r5u"
+    },
+    {
+      "date": "2026-06-18",
+      "type": "expense",
+      "category": "Food",
+      "subcategory": "Grocery",
+      "amount": 86.55,
+      "account": "BMO",
+      "note": "",
+      "id": "a0l7253j2d54"
+    },
+    {
+      "date": "2026-06-20",
+      "type": "expense",
+      "category": "Entertainment",
+      "subcategory": "Subscription",
+      "amount": 11.99,
+      "account": "Visa",
+      "note": "Spotify",
+      "id": "d14ve92mpnsm"
+    }
+  ]
+}
