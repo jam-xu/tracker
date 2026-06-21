@@ -14,7 +14,6 @@ export function useAuth() {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
-      // When user clicks the reset link in email, this event fires
       if (event === "PASSWORD_RECOVERY") setRecovering(true);
     });
 
