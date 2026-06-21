@@ -8,7 +8,7 @@ const P_LIGHT = {
 };
 
 export default function AuthPage({ onSignIn, onSignUp, onResetPassword }) {
-  const [mode, setMode] = useState("signin"); // "signin" | "signup" | "reset"
+  const [mode, setMode] = useState("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -121,4 +121,18 @@ export default function AuthPage({ onSignIn, onSignUp, onResetPassword }) {
 
             <div style={{ textAlign: "center", marginTop: 24, fontSize: 13, color: P_LIGHT.muted }}>
               {mode === "signin" && (
-                <>No account? <button onClick={() => setMode("signup")} style={{ border: "none", background: "transparent",
+                <>No account? <button onClick={() => setMode("signup")} style={{ border: "none", background: "transparent", color: P_LIGHT.accent, fontWeight: 600, cursor: "pointer", fontSize: 13 }}>Sign up</button></>
+              )}
+              {mode === "signup" && (
+                <>Already have an account? <button onClick={() => setMode("signin")} style={{ border: "none", background: "transparent", color: P_LIGHT.accent, fontWeight: 600, cursor: "pointer", fontSize: 13 }}>Sign in</button></>
+              )}
+              {mode === "reset" && (
+                <>Remembered it? <button onClick={() => setMode("signin")} style={{ border: "none", background: "transparent", color: P_LIGHT.accent, fontWeight: 600, cursor: "pointer", fontSize: 13 }}>Back to sign in</button></>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
