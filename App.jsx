@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useAuth } from "./hooks/useAuth.js";
 import { useData } from "./hooks/useData.js";
 import { supabase } from "./lib/supabase.js";
@@ -13,7 +13,8 @@ import InvestTab from "./components/InvestTab.jsx";
 export default function App() {
   const { user, loading: authLoading, recovering, signIn, signUp, signOut, resetPassword, updatePassword } = useAuth();
   const { transactions, config, loading: dataLoading,
-          addTransaction, updateTransaction, deleteTransaction, bulkUpdate, updateConfig } = useData(user);
+          addTransaction, updateTransaction, deleteTransaction, bulkUpdate, updateConfig,
+          replaceAllData, exportData } = useData(user);
 
   const [tab, setTab]           = useState("dash");
   const [month, setMonth]       = useState("all");
@@ -84,7 +85,7 @@ export default function App() {
         {tab === "expense" && <LogTab P={P} money={money} money0={money0} type="expense" txns={transactions} scoped={scoped} month={month} config={config} onAdd={addTransaction} onEdit={updateTransaction} onDel={deleteTransaction} onBulkEdit={bulkUpdate} />}
         {tab === "income" && <LogTab P={P} money={money} money0={money0} type="income" txns={transactions} scoped={scoped} month={month} config={config} onAdd={addTransaction} onEdit={updateTransaction} onDel={deleteTransaction} onBulkEdit={bulkUpdate} />}
         {tab === "investment" && <InvestTab P={P} money={money} money0={money0} txns={transactions} scoped={scoped} month={month} config={config} onAdd={addTransaction} onEdit={updateTransaction} onDel={deleteTransaction} onBulkEdit={bulkUpdate} />}
-        {tab === "settings" && <SettingsTab P={P} user={user} config={config} onUpdateConfig={updateConfig} onSignOut={signOut} />}
+        {tab === "settings" && <SettingsTab P={P} user={user} config={config} onUpdateConfig={updateConfig} onSignOut={signOut} onReplaceAll={replaceAllData} onExport={exportData} />}
       </div>
     </div>
   );
@@ -93,13 +94,18 @@ export default function App() {
 // ── Settings ───────────────────────────────────────────────────
 const ACCOUNTS = ["TFSA", "FHSA", "RRSP"];
 
-function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
+function SettingsTab({ P, user, config, onUpdateConfig, onSignOut, onReplaceAll, onExport }) {
   const roomLeft = config?.room_left || {};
   const [rooms, setRooms]           = useState({ TFSA: roomLeft.TFSA ?? "", FHSA: roomLeft.FHSA ?? "", RRSP: roomLeft.RRSP ?? "" });
   const [saved, setSaved]           = useState(false);
   const [deleting, setDeleting]     = useState(false);
   const [confirmDel, setConfirmDel] = useState("");
   const [delError, setDelError]     = useState("");
+
+  const fileRef = useRef(null);
+  const [dataMsg, setDataMsg] = useState("");
+  const [dataErr, setDataErr] = useState("");
+  const [busy, setBusy] = useState(false);
 
   const saveRooms = async () => {
     const room_left = {};
@@ -123,8 +129,88 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
     }
   };
 
+  const handleExport = () => {
+    setDataErr(""); setDataMsg("");
+    try {
+      const json = onExport();
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `finance-tracker-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setDataMsg(`Exported ${json.transactions.length} transactions.`);
+    } catch (e) {
+      setDataErr("Export failed: " + e.message);
+    }
+  };
+
+  const handleImportClick = () => {
+    setDataErr(""); setDataMsg("");
+    fileRef.current?.click();
+  };
+
+  const handleFile = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // reset so same file can be re-selected
+    if (!file) return;
+    setDataErr(""); setDataMsg("");
+
+    let json;
+    try {
+      const text = await file.text();
+      json = JSON.parse(text);
+    } catch (err) {
+      setDataErr("Couldn't read file: " + err.message);
+      return;
+    }
+    if (!json || !Array.isArray(json.transactions)) {
+      setDataErr("File doesn't look like a valid export (missing transactions array).");
+      return;
+    }
+
+    const ok = window.confirm(
+      `This will REPLACE all your current data with ${json.transactions.length} transactions from the file. ` +
+      `Existing transactions will be deleted. Continue?`
+    );
+    if (!ok) return;
+
+    setBusy(true);
+    try {
+      await onReplaceAll(json);
+      setDataMsg(`Imported ${json.transactions.length} transactions. Refresh if anything looks off.`);
+    } catch (err) {
+      setDataErr("Import failed: " + err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleLoadDemo = async () => {
+    setDataErr(""); setDataMsg("");
+    const ok = window.confirm(
+      "This will REPLACE all your current data with the demo dataset. Continue?"
+    );
+    if (!ok) return;
+
+    setBusy(true);
+    try {
+      const res = await fetch("/demo-data.json");
+      if (!res.ok) throw new Error(`Couldn't fetch demo file (status ${res.status})`);
+      const json = await res.json();
+      await onReplaceAll(json);
+      setDataMsg(`Loaded ${json.transactions.length} demo transactions.`);
+    } catch (err) {
+      setDataErr("Couldn't load demo data: " + err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const inputS    = inputStyle(P);
   const btnDanger = { border: `1px solid ${P.over}`, background: "transparent", color: P.over, borderRadius: P.radiusSm, padding: "9px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer" };
+  const btnSecondary = { border: `1px solid ${P.border}`, background: P.surface, color: P.ink, borderRadius: P.radiusSm, padding: "9px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer" };
 
   return (
     <div>
@@ -161,6 +247,21 @@ function SettingsTab({ P, user, config, onUpdateConfig, onSignOut }) {
         <button onClick={saveRooms} style={{ ...btnPrimaryStyle(P), width: "auto", padding: "9px 24px", fontSize: 13 }}>
           {saved ? "✓ Saved" : "Save"}
         </button>
+      </Card>
+
+      <Card P={P} title="Data" subtitle="Import, export, or load demo">
+        <p style={{ fontSize: 13, color: P.muted, marginBottom: 16, marginTop: 0 }}>
+          Export downloads all your data as a JSON file. Import and Load demo both <strong>replace</strong> everything you currently have.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <button onClick={handleExport} disabled={busy} style={btnSecondary}>⬇ Export data</button>
+          <button onClick={handleImportClick} disabled={busy} style={btnSecondary}>⬆ Import data</button>
+          <button onClick={handleLoadDemo} disabled={busy} style={btnSecondary}>★ Load demo data</button>
+          <input ref={fileRef} type="file" accept="application/json,.json" onChange={handleFile} style={{ display: "none" }} />
+        </div>
+        {busy && <div style={{ marginTop: 12, fontSize: 13, color: P.muted }}>Working…</div>}
+        {dataMsg && <div style={{ marginTop: 12, fontSize: 13, color: P.income }}>{dataMsg}</div>}
+        {dataErr && <div style={{ marginTop: 12, fontSize: 13, color: P.over }}>{dataErr}</div>}
       </Card>
 
       <Card P={P} title="Delete account">
