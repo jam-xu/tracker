@@ -70,3 +70,15 @@ create index if not exists transactions_user_date
 
 create index if not exists transactions_user_type
   on transactions (user_id, type);
+
+-- ── Delete user function (called from the app to self-delete) ──
+-- Run this in Supabase SQL Editor too
+create or replace function delete_user()
+returns void
+language plpgsql
+security definer
+as $$
+begin
+  delete from auth.users where id = auth.uid();
+end;
+$$;
